@@ -4,3 +4,5 @@ export function getUUID () {
     return v.toString(32);
   });
 }
+
+export const containerId = 'RIGHT_PANEL';

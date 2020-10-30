@@ -51,9 +51,6 @@ function LeftPanel (props) {
       }
       const left = e.clientX - tempX - leftPanelWidth;
       const top = e.clientY - tempY - leftPanelTop;
-      console.log('tempX');
-      console.log(left);
-      console.log(top);
       if (left + leftPanelWidth < leftPanelWidth || top < leftPanelTop) {
         return false;
       }
