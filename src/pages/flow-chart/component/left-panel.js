@@ -51,7 +51,7 @@ function LeftPanel (props) {
       }
       const left = e.clientX - tempX - leftPanelWidth;
       const top = e.clientY - tempY - leftPanelTop;
-      if (left + leftPanelWidth < leftPanelWidth || top < leftPanelTop) {
+      if (left  < 0 || top < 0) {
         return false;
       }
       props.dropNode({

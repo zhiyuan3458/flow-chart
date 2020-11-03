@@ -4,7 +4,7 @@ import { containerId } from '@/pages/flow-chart/utils';
 
 function DraggableNode (props) {
   const dragRef = useRef(null);
-  const { node, dragNode, container } = props;
+  const { node, dragNode, container, onMoveNode } = props;
   let dragDOM = null;
   const createDrag = (e) => {
     dragDOM = e.target.cloneNode(true);
@@ -33,6 +33,7 @@ function DraggableNode (props) {
       if (disX < 0) disX = 0;
       if (disY < 0) disY = 0;
       dragDOM.style.transform = `translate(${ disX }px, ${ disY }px)`;
+      onMoveNode({ ...node, x: disX, y: disY }, e);
     };
     const onMouseUp = e => {
       document.onmousemove = null;
@@ -46,7 +47,7 @@ function DraggableNode (props) {
       if (disX < 0) disX = 0;
       if (disY < 0) disY = 0;
       dragRef.current.style.transform = `translate(${ disX }px, ${ disY }px)`;
-      dragNode({ ...node, x: disX, y: disY });
+      dragNode({ ...node, x: disX, y: disY }, e);
     };
     setTimeout(() => {
       document.onmousemove = null;

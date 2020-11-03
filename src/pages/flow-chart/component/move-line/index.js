@@ -1,12 +1,10 @@
 import React from 'react';
 import { computeAbs } from '@/pages/flow-chart/utils';
 
-function FlowLine (props) {
+function MoveLine (props) {
   const { edge } = props;
-  const { fromPos, toPos } = edge;
-  const { x: x1, y: y1 } = fromPos;
-  const { x: x2, y: y2 } = toPos;
-
+  const { x: x1, y: y1 } = edge.fromPos;
+  const { x: x2, y: y2 } = edge.toPos;
   const abs = computeAbs(y1, y2);
 
   return (
@@ -15,6 +13,7 @@ function FlowLine (props) {
         d={ `M ${ x1 },${ y1 } C ${ x1 },${ y1 + abs } ${ x2 },${ y2 - abs } ${ x2 },${ y2 }` }
         fill="none"
         stroke="blue"
+        opacity="0.3"
         strokeWidth={ 1 }
       >
       </path>
@@ -22,4 +21,4 @@ function FlowLine (props) {
   );
 }
 
-export default FlowLine;
+export default MoveLine;

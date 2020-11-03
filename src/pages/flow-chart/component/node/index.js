@@ -9,13 +9,11 @@ function Node (props) {
   const onMouseDown = (e, node) => {
     e.preventDefault();
     e.stopPropagation();
-    const pointX = Math.floor(e.target.offsetWidth / 2);
-    const pointY = Math.floor(e.target.offsetHeight / 2);
-    const initX = node.x + pointX + e.target.offsetLeft;
-    const initY = node.y + pointY + e.target.offsetTop;
+    const initX = node.x + e.target.offsetLeft;
+    const initY = node.y + e.target.offsetTop;
     const line = {
       id: getUUID(),
-      nodeId: node.id,
+      fromNodeId: node.id,
       nodeName: node.name,
       fromPos: {
         x: initX,
@@ -29,11 +27,20 @@ function Node (props) {
     props.dragLine(line);
   };
 
+  const onMouseUp = (e, node) => {
+    const toPos = {
+      x: node.x + Math.floor(node.width / 2),
+      y: node.y
+    };
+    props.addEdge({ toPos, toNodeId: node.id }, e);
+  };
+
   return (
     <div
       ref={ nodeRef }
       id={ node.id }
-      className={ Styles.rect }
+      className={ `${ Styles.rect } ${ Styles.rightRect }` }
+      onMouseUp={ e => onMouseUp(e, node) }
     >
       <span
         className={ `${ Styles.point } ${ Styles.upPoint }` }
