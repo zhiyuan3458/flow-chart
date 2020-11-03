@@ -30,7 +30,7 @@ function LeftPanel (props) {
     function isInRight (e) {
       const left = e.clientX - tempX - leftPanelWidth;
       const top = e.clientY - tempY - leftPanelTop;
-      return left + leftPanelWidth > leftPanelWidth && top > leftPanelTop;
+      return left > 0 && top > 0;
     }
 
     const move = e => {
