@@ -41,8 +41,10 @@ function DraggableNode (props) {
         container.removeChild(dragDOM);
         dragDOM = null;
       }
-      const disX = node.x + e.clientX - initX;
-      const disY = node.y + e.clientY - initY;
+      let disX = node.x + e.clientX - initX;
+      let disY = node.y + e.clientY - initY;
+      if (disX < 0) disX = 0;
+      if (disY < 0) disY = 0;
       dragRef.current.style.transform = `translate(${ disX }px, ${ disY }px)`;
       dragNode({ ...node, x: disX, y: disY });
     };
