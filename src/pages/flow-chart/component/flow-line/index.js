@@ -1,5 +1,6 @@
 import React from 'react';
 import { computeAbs } from '@/pages/flow-chart/utils';
+import Styles from '@/pages/flow-chart/index.less';
 
 function FlowLine (props) {
   const { edge } = props;
@@ -18,6 +19,10 @@ function FlowLine (props) {
         strokeWidth={ 1 }
       >
       </path>
+      <path
+        className={ Styles.pathArrow }
+        d={`M ${x2},${y2} l 5 0 l -5 10 l -5 -10 Z`}
+      />
     </g>
   );
 }

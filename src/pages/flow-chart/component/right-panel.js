@@ -5,14 +5,16 @@ import Styles from '../index.less';
 import { containerId } from '@/pages/flow-chart/utils';
 import FlowLine from '@/pages/flow-chart/component/flow-line';
 import MoveLine from '@/pages/flow-chart/component/move-line';
+import { arrowHei } from '../utils';
+import GuideLine from './guide-line';
 
 function RightPanel (props) {
   const rightPanel = useRef(null);
-  const { nodes, edges, moveEdges, dragNode, dragLine, onCanvasMouseUp, addEdge, onMoveNode } = props;
+  const { nodes, edges, moveEdges, guideLines, dragNode, dragLine, onCanvasMouseUp, addEdge, onMoveNode } = props;
 
   const onMouseMove = e => {
     const x = e.clientX - rightPanel.current.offsetLeft;
-    const y = e.clientY - rightPanel.current.offsetTop;
+    const y = e.clientY - rightPanel.current.offsetTop - arrowHei;
     props.onMouseMoveInRight({ x, y });
   };
 
@@ -57,6 +59,11 @@ function RightPanel (props) {
         {
           moveEdges.map(edge => (
             <MoveLine key={ edge.id } edge={ edge } />
+          ))
+        }
+        {
+          guideLines.map(edge => (
+            <GuideLine key={ edge.id } edge={ edge } />
           ))
         }
       </svg>

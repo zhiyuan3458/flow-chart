@@ -4,6 +4,7 @@ import RightPanel from './component/right-panel';
 import FlowLine from '@/pages/flow-chart/component/flow-line';
 import Styles from './index.less';
 import { getUUID } from '@/pages/flow-chart/utils';
+import { arrowHei, setGuideLine } from './utils';
 
 function initMartix () {
   return {
@@ -15,6 +16,7 @@ function FlowChart () {
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState([]);
   const [moveEdges, setMoveEdges] = useState([]);
+  const [guideLines, setGuideLines] = useState([]);
   const [curMove, setCurMove] = useState(null);
   const [martix, setMartix] = useState(initMartix());
   const latestEdges = useRef({});
@@ -32,13 +34,13 @@ function FlowChart () {
         return {
           ...item,
           id: getUUID(),
-          fromPos: { x: node.x + Math.floor(node.width / 2), y: node.y }
+          fromPos: { x: node.x + Math.floor(node.width / 2), y: node.y + node.height }
         };
       } else if (item.toNodeId === node.id) {
         return {
           ...item,
           id: getUUID(),
-          toPos: { x: node.x + Math.floor(node.width / 2), y: node.y }
+          toPos: { x: node.x + Math.floor(node.width / 2), y: node.y - arrowHei }
         };
       } else {
         return item;
@@ -62,6 +64,7 @@ function FlowChart () {
   const onCanvasMouseUp = e => {
     setEdges(edges.filter(item => !!item.toNodeId));
     setMartix(initMartix());
+    setGuideLines([]);
   };
 
   /* 添加某条线 */
@@ -85,16 +88,18 @@ function FlowChart () {
     relateEdges = relateEdges.map(item => item.fromNodeId === node.id ? ({
         ...item,
         id: getUUID(),
-        fromPos: { x: node.x + Math.floor(node.width / 2), y: node.y }
+        fromPos: { x: node.x + Math.floor(node.width / 2), y: node.y + node.height }
       })
       :
       ({
         ...item,
         id: getUUID(),
-        toPos: { x: node.x + Math.floor(node.width / 2), y: node.y }
+        toPos: { x: node.x + Math.floor(node.width / 2), y: node.y - arrowHei }
       })
     );
     setMoveEdges(relateEdges);
+    const guideLines = setGuideLine(node, nodes, e.target);
+    setGuideLines(guideLines);
   };
 
   return (
@@ -104,6 +109,7 @@ function FlowChart () {
         nodes={ nodes }
         edges={ edges }
         moveEdges={ moveEdges }
+        guideLines={ guideLines }
         dragNode={ dragNode }
         dragLine={ dragLine }
         onMouseMoveInRight={ onMouseMoveInRight }

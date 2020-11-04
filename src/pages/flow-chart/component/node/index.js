@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import Styles from '@/pages/flow-chart/index.less';
 import { getUUID } from '@/pages/flow-chart/utils';
+import { arrowHei } from '../../utils';
 
 function Node (props) {
   const nodeRef = useRef(null);
@@ -30,7 +31,7 @@ function Node (props) {
   const onMouseUp = (e, node) => {
     const toPos = {
       x: node.x + Math.floor(node.width / 2),
-      y: node.y
+      y: node.y - arrowHei
     };
     props.addEdge({ toPos, toNodeId: node.id }, e);
   };

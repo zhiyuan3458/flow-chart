@@ -1,5 +1,6 @@
 import React from 'react';
 import { computeAbs } from '@/pages/flow-chart/utils';
+import Styles from '@/pages/flow-chart/index.less';
 
 function MoveLine (props) {
   const { edge } = props;
@@ -12,11 +13,16 @@ function MoveLine (props) {
       <path
         d={ `M ${ x1 },${ y1 } C ${ x1 },${ y1 + abs } ${ x2 },${ y2 - abs } ${ x2 },${ y2 }` }
         fill="none"
-        stroke="blue"
+        stroke="#567bff"
         opacity="0.3"
         strokeWidth={ 1 }
       >
       </path>
+      <path
+        className={ Styles.pathArrow }
+        opacity="0.3"
+        d={`M ${x2},${y2} l 5 0 l -5 10 l -5 -10 Z`}
+      />
     </g>
   );
 }
