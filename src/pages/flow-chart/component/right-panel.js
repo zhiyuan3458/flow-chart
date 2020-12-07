@@ -10,11 +10,12 @@ import GuideLine from './guide-line';
 
 function RightPanel (props) {
   const rightPanel = useRef(null);
-  const { nodes, edges, moveEdges, guideLines, dragNode, dragLine, onCanvasMouseUp, addEdge, onMoveNode } = props;
+  const { nodes, edges, moveEdges, guideLines, dropNode, dragLine, onCanvasMouseUp, addEdge, onMoveNode } = props;
 
   const onMouseMove = e => {
-    const x = e.clientX - rightPanel.current.offsetLeft;
-    const y = e.clientY - rightPanel.current.offsetTop - arrowHei;
+    const { top: rightPanelTop, left: rightPanelLeft } = rightPanel.current.getBoundingClientRect();
+    const x = e.clientX - rightPanelLeft;
+    const y = e.clientY - rightPanelTop - arrowHei;
     props.onMouseMoveInRight({ x, y });
   };
 
@@ -37,7 +38,7 @@ function RightPanel (props) {
             key={ node.id }
             node={ node }
             onMoveNode={ onMoveNode }
-            dragNode={ dragNode }
+            dropNode={ dropNode }
           >
             <Node
               node={ node }

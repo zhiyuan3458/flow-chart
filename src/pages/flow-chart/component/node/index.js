@@ -10,8 +10,8 @@ function Node (props) {
   const onMouseDown = (e, node) => {
     e.preventDefault();
     e.stopPropagation();
-    const initX = node.x + e.target.offsetLeft;
-    const initY = node.y + e.target.offsetTop;
+    const initX = node.x + e.target.offsetLeft + 1;
+    const initY = node.y + e.target.offsetTop + 1;
     const line = {
       id: getUUID(),
       fromNodeId: node.id,
@@ -41,10 +41,12 @@ function Node (props) {
       ref={ nodeRef }
       id={ node.id }
       className={ `${ Styles.rect } ${ Styles.rightRect }` }
+      style={ node.style }
       onMouseUp={ e => onMouseUp(e, node) }
     >
       <span
         className={ `${ Styles.point } ${ Styles.upPoint }` }
+        onMouseDown={ (e) => e.stopPropagation() }
       >
       </span>
       { node.name }

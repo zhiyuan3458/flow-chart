@@ -12,7 +12,7 @@ function GuideLine (props) {
       x2={ x2 }
       y2={ y2 }
       stroke="red"
-      strokeWidth="2px"
+      strokeWidth="1px"
     >
     </line>
   );
