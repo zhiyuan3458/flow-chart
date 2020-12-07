@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import LeftPanel from './component/left-panel';
 import RightPanel from './component/right-panel';
 import Styles from './index.less';
